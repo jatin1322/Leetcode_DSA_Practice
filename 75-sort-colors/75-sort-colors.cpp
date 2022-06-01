@@ -1,28 +1,30 @@
 class Solution {
-public:
-    void countSort(vector<int>& arr)
-{
-    int max = *max_element(arr.begin(), arr.end());
-    int min = *min_element(arr.begin(), arr.end());
-    int range = max - min + 1;
- 
-    vector<int> count(range), output(arr.size());
-    for (int i = 0; i < arr.size(); i++)
-        count[arr[i] - min]++;
- 
-    for (int i = 1; i < count.size(); i++)
-        count[i] += count[i - 1];
- 
-    for (int i = arr.size() - 1; i >= 0; i--) {
-        output[count[arr[i] - min] - 1] = arr[i];
-        count[arr[i] - min]--;
-    }
- 
-    for (int i = 0; i < arr.size(); i++)
-        arr[i] = output[i];
-}
- 
-    void sortColors(vector<int>& nums) {
-        countSort(nums); 
+    public:
+    void sortColors(vector<int>& nums) 
+    {
+        int tmp = 0, low = 0, mid = 0, high = nums.size() - 1;
+    
+        while(mid <= high)
+        {
+            if(nums[mid] == 0)
+            {
+                tmp = nums[low];
+                nums[low] = nums[mid];
+                nums[mid] = tmp;
+                low++;
+                mid++;
+            }
+            else if(nums[mid] == 1)
+            {
+                mid++;
+            }
+            else if(nums[mid] == 2)
+            {
+                tmp = nums[high];
+                nums[high] = nums[mid];
+                nums[mid] = tmp;
+                high--;
+            }
+        }
     }
 };
