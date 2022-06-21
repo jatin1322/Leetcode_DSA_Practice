@@ -14,6 +14,37 @@ public:
         if(head->next==NULL){
             return NULL;
         }
+         ListNode* t=head;
+         ListNode* fast=t;
+        ListNode* slow=t;
+        for(int i=1;i<=n;i++){
+            fast=fast->next;
+        }
+        if(fast==NULL){
+            return head->next;
+        }
+        while(fast->next!=NULL){
+             fast=fast->next;
+            slow=slow->next;
+            
+        }
+        slow->next=slow->next->next;
+                return t;
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+     /*   if(head->next==NULL){
+            return NULL;
+        }
         
       ListNode* temp=head;
         
@@ -40,6 +71,7 @@ public:
         }
         t1->next=t1->next->next;
         
-        return head;
+        return head; */
+        
     }
 };
