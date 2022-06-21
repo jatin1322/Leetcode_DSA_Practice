@@ -10,6 +10,17 @@
  */
 class Solution {
 public:
+    ListNode* reverse2(ListNode* &head){
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        ListNode* sub_LL=reverse2(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return sub_LL;
+        
+    }
+    
     void reverse(ListNode* &head,ListNode* curr,ListNode* prev){
         
         if(curr==NULL){
@@ -25,13 +36,15 @@ public:
         
     }
     ListNode* reverseList(ListNode* head) {
+        return reverse2(head);
         
         
-        
-       ListNode* prev=NULL;
+     /*  ListNode* prev=NULL;
         ListNode* curr=head;
         reverse(head,curr,prev);
         return head;
+        
+      */
         
         /*
               
