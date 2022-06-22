@@ -8,6 +8,48 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode*ans=new ListNode(-1);
+        ListNode*temp=ans;
+        
+        int carry=0;
+        while(l1 or l2 or carry)
+        {
+            int n=carry;
+            if(l1)
+            {
+                n+=l1->val;
+                l1=l1->next;
+            }
+            if(l2)
+            {
+                n+=l2->val;
+                l2=l2->next;
+            }
+            temp->next=new ListNode(n%10);
+            temp=temp->next;
+            carry=n/10;
+        }
+        temp=ans->next;
+        delete ans;
+        return temp;
+    }
+}; 
+
+// my try
+/*
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
@@ -57,3 +99,4 @@ public:
         return temp1;
     }
 };
+*/
