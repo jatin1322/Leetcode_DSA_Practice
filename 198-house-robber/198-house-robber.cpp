@@ -10,9 +10,19 @@ public:
         return dp[ind]=max(pick,nonpick);
         
     }
+    
     int rob(vector<int>& nums) {
         int n=nums.size();
-        vector<int> dp(n,-1);
-        return a(n-1,dp,nums);
+        vector<int> dp(n);
+        if(n==2) return max(nums[0],nums[1]);
+     //   return a(n-1,dp,nums);
+        dp[0]=nums[0];
+        for(int i=1;i<n;i++){
+            int pick=nums[i];
+           if(i>1)  pick+=dp[i-2];
+            int nonpick=dp[i-1];
+            dp[i]=max(pick,nonpick);
+        }
+        return dp[n-1];
     }
 };
