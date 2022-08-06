@@ -1,22 +1,41 @@
 class Solution {
 public:
-    bool dfs(vector<int> adj[],vector<int> &vis,int cur,int par=-1){
-        if(vis[cur]) return true;
-        vis[cur]=1;
-        for(auto it:adj[cur]){
-            if(dfs(adj,vis,it,cur) && it!=par) return true;
-        }
-        return false;
+    int find(int node,vector<int> &par){
+        if(node==par[node]) return node;
+        return par[node]=find(par[node],par);
     }
+   bool unionn(int x,int y,vector<int> &par,vector<int> &rank){
+       int xp=find(x,par);
+       int yp=find(y,par);
+       if(xp==yp) return false;
+       if(rank[xp]>rank[yp]){
+           par[yp]=xp;
+       }
+       else if(rank[yp]>rank[xp]){
+           par[xp]=yp;
+           
+       }
+       else{
+           par[xp]=yp;
+           rank[yp]++;
+           return true;
+          
+       }
+       return true;
+   }
+    
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n=edges.size();
-        vector<int> adj[n+1];
-        vector<int> vis(n+1,false);
+        
+     vector<int> par(n+1,0);
+        vector<int> rank(n+1,0);
+        for(int i=0;i<=n;i++){
+            par[i]=i;
+        }
+        
         for(auto it:edges){
-            fill(vis.begin(),vis.end(),false);
-            adj[it[0]].push_back(it[1]);
-             adj[it[1]].push_back(it[0]);
-            if(dfs(adj,vis,it[0])) return it;
+            if(!unionn(it[0],it[1],par,rank)) return it;
+                
         }
         return { };
     }
