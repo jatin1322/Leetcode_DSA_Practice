@@ -22,19 +22,23 @@ public:
         }
         int ind=perfect.size();
         vector<vector<int>> dp(ind,vector<int> (n+1,0));
+        vector<int> prev(n+1);
+        vector<int> curr(n+1);
         for(int i=0;i<ind;i++){
            
             for(int j=0;j<=n;j++){
-                if(j==0){dp[i][j]=0; continue;}
-                if(i==0) {dp[i][j]=j;continue;}
+                if(j==0){curr[j]=0; continue;}
+                if(i==0) {curr[j]=j;continue;}
                  int take=1e9;
-     if(j>=perfect[i]) take =1+dp[i][j-perfect[i]];
+     if(j>=perfect[i]) take =1+curr[j-perfect[i]];
         
-       int nottake=  dp[i-1][j];
-         dp[i][j]=min(take,nottake);
+       int nottake=  prev[j];
+         curr[j]=min(take,nottake);
                 
             }
+            prev=curr;
+            
         }
-        return dp[ind-1][n];
+        return prev[n];
     }
 };
