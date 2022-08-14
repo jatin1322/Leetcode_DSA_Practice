@@ -1,16 +1,7 @@
 class Solution {
 public:
-int max(int a, int b) { return (a > b) ? a : b; }
- 
-// A utility function to find maximum of three integers
-int max(int a, int b, int c) { return max(max(a, b), c); }
- 
-// Find the maximum possible sum in arr[] such that arr[m]
-// is part of it
-int maxCrossingSum(vector<int> &arr, int l, int m, int h)
-{
-    // Include elements on left of mid.
-    int sum = 0;
+    int maxcross(int l,int m,int h,vector<int> &arr){
+         int sum = 0;
     int left_sum = INT_MIN;
     for (int i = m; i >= l; i--) {
         sum = sum + arr[i];
@@ -26,38 +17,18 @@ int maxCrossingSum(vector<int> &arr, int l, int m, int h)
         if (sum > right_sum)
             right_sum = sum;
     }
- 
-    // Return sum of elements on left and right of mid
-    // returning only left_sum + right_sum will fail for
-    // [-2, 1]
-    return max(left_sum + right_sum - arr[m], left_sum, right_sum);
-}
- 
-// Returns sum of maximum sum subarray in aa[l..h]
-int maxSubArraySum(vector<int> &arr, int l, int h)
-{
-      //Invalid Range: low is greater than high
-      if (l > h)
-          return INT_MIN;
-    // Base Case: Only one element
-    if (l == h)
-        return arr[l];
- 
-    // Find middle point
-    int m = (l + h) / 2;
- 
-    /* Return maximum of following three possible cases
-            a) Maximum subarray sum in left half
-            b) Maximum subarray sum in right half
-            c) Maximum subarray sum such that the subarray
-       crosses the midpoint */
-    return max(maxSubArraySum(arr, l, m - 1),
-               maxSubArraySum(arr, m + 1, h),
-               maxCrossingSum(arr, l, m, h));
-}
- 
+        return max(left_sum + right_sum - arr[m], max(left_sum, right_sum));
+    }
+    int solve(int l,int h,vector<int> &nums){
+        if(l>h) return INT_MIN;
+        if(l==h) return nums[l];
+        int m=(l+h)/2;
+        return max(max(solve(l, m - 1,nums),
+               solve(m + 1, h,nums)),
+               maxcross(l, m, h,nums));
+    }
     int maxSubArray(vector<int>& nums) {
-       return maxSubArraySum(nums,0,nums.size()-1);
+       return solve(0,nums.size()-1,nums);
         
         
     }
