@@ -10,7 +10,7 @@ if((sum-d)&1 || d>sum) return 0;
     
         int k=(sum-d)/2;
         vector<int> prev(k+1,0);
-        vector<int> curr(k+1,0);
+        //vector<int> curr(k+1,0);
         //vector<vector<bool>> dp(n,vector<bool>(k+1,0));
         //return solve(n-1,k,arr,dp);
       prev[0]=1;
@@ -22,14 +22,14 @@ if((sum-d)&1 || d>sum) return 0;
     if(arr[0]!=0 && arr[0]<=k) prev[arr[0]] = 1;
             for(int i=1;i<n;i++){
                 
-                for(int j=0;j<=k;j++){
+                for(int j=k;j>=0;j--){
                         int taken=0;
   if(j>=arr[i]) taken=prev[j-arr[i]];
     int nottaken=prev[j];
-     curr[j]=(taken+nottaken)%1000000007;
+     prev[j]=(taken+nottaken);
                     
                 }
-                prev=curr;
+                
                 
                 
             }
