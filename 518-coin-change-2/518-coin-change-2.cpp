@@ -23,10 +23,23 @@ public:
     int change(int T,vector<int>& arr) {
            int n= arr.size();
     
-    vector<vector<int>> dp(n,vector<int>(T+1,-1));
-    int ans =  minimumElementsUtil(arr, n-1, T, dp);
-    
-    return ans;
+    vector<vector<int>> dp(n,vector<int>(T+1,0));
+   // int ans =  minimumElementsUtil(arr, n-1, T, dp);
+    for(int i=0;i<=T;i++){
+       if(i%arr[0]==0) dp[0][i]=1;
+        
+    }
+        for(int i=1; i<n;i++){
+            for(int j=0;j<=T;j++){
+                int nottaken=dp[i-1][j];
+                int taken=0;
+                if(arr[i]<=j){
+                    taken=dp[i][j-arr[i]];
+                }
+                dp[i][j]=taken+nottaken;
+            }
+        }
+    return dp[n-1][T];
 
     }
 };
