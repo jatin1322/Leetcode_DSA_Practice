@@ -3,6 +3,10 @@ public:
     void solve(int ind,int target,vector<int> &arr,vector<int> &temp,vector<vector<int>> &ans){
         
         // pick
+        if(target==0){
+            ans.push_back(temp);
+            return;
+        }
         if(ind>=arr.size()){
             if(target==0)
             ans.push_back(temp);
