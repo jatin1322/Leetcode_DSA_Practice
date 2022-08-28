@@ -12,6 +12,7 @@ public:
                 for(int k=0;k<m;k++){
                     temp[k]+=mat[i][k];
                 }
+                // Imp part starts from here
                 set<int> st;
                 int curr_sum = 0;
                 st.insert(0);
@@ -22,7 +23,7 @@ public:
                         max_sum = max(max_sum, curr_sum - *it);
                     st.insert(curr_sum);
                 }
-
+    // read again
                 
                 
             }
