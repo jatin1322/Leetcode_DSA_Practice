@@ -4,11 +4,12 @@ public:
       
         int n=mat.size();
         int m=mat[0].size();
-        for(int q=0;q<n;q++){
+        
+       
             
-       for(int k=m-1;k>=0;k--){
+       for(int k=0;k<m;k++){
              vector<int> temp;
-        int i=q;
+        int i=0;
         int j=k;
         while(i<n && j< m){
             temp.push_back(mat[i][j]);
@@ -17,7 +18,7 @@ public:
         }
            sort(temp.begin(),temp.end());
            int l=0;
-            i=q;
+            i=0;
            j=k;
         while(i<n && j< m){
             mat[i][j]=temp[l];
@@ -27,6 +28,31 @@ public:
         }
            
         }
+            
+        
+        for(int q=1;q<n;q++){
+            
+       
+             vector<int> temp;
+        int i=q;
+        int j=0;
+        while(i<n && j< m){
+            temp.push_back(mat[i][j]);
+            i++;
+            j++;
+        }
+           sort(temp.begin(),temp.end());
+           int l=0;
+            i=q;
+           j=0;
+        while(i<n && j< m){
+            mat[i][j]=temp[l];
+            l++;
+            i++;
+            j++;
+        }
+           
+        
             
         }
         
