@@ -1,29 +1,27 @@
-class Solution {
+    class Solution
+{
 public:
-    int numberOfWeakCharacters(vector<vector<int>>& p) {
-        sort(p.begin(),p.end());
-        int n=p.size();
-         vector<int> a(n);
-        vector<int> b(n);
-        for(int i=0;i<p.size();i++){
-            a[i]=p[i][0];
-            b[i]=p[i][1];
-        }
-        int ans=0;
-        vector<int> gre(n);
-        gre[n-1]=b[n-1];
-        for(int i=n-2;i>=0;i--){
-            gre[i]=max(gre[i+1],b[i]);
-        }
-        
-        for(int i=0;i<n-1;i++){
-            int x=upper_bound(a.begin(),a.end(),a[i])-a.begin();
-            if(x==n) continue;
-            if(gre[x]>b[i]){
-                ans++;
-            }
-            
-        }
-        return ans; 
-    }
+     //handling the edge case while sorting
+     static bool comp(vector<int> &a, vector<int> &b)
+     {
+          if (a[0] == b[0])
+          {
+               return a[1] > b[1];
+          }
+          return a[0] < b[0];
+     }
+     int numberOfWeakCharacters(vector<vector<int>> &properties)
+     {
+          sort(properties.begin(), properties.end(), comp); //sorting the array
+          int mtn = INT_MIN;                                //max till now while moving from right
+          int ans = 0;
+
+          for (int i = properties.size() - 1; i >= 0; i--)
+          {
+               if (properties[i][1] < mtn) // if the second parameter is also less increase the ans
+                    ans++;
+               mtn = max(mtn, properties[i][1]);
+          }
+          return ans;
+     }
 };
